@@ -1,4 +1,9 @@
-
+#The mbm file constructre is shown below
+##### file header ###### 20 bytes
+#####header length###### 4 bytes(?) for length others are padding bits 0
+#####    index    ###### 16 bytes per record
+#####   content   ######
+#The index is info about every record. First is the No., second is the legth, third is the address.
 f = open("EndingTextMsgTypeA.mbm","rb")
 wf = open("text","w")
 
@@ -12,6 +17,7 @@ while True :
   words = int(f.read(1).encode('hex'),16)
   if words > num_of_words:break
   f.seek(3,1)
+  #each end with 80 01 FF FF so the length need to sub 4
   length = int(f.read(1).encode('hex'),16) - 4
 #  print length
   f.seek(3,1)
